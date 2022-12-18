@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Container } from "@mui/material";
 import { useAsyncFn } from "react-use";
 
 function QuoteAuthorCard() {
@@ -9,31 +9,43 @@ function QuoteAuthorCard() {
     return result;
   }, ["https://api.quotable.io/random"]);
 
-  return (
-    <Card>
-      <div>
-        {state.value === undefined ? (
-          <div>
-            <h1>Press the button to start</h1>
-            <h2>...</h2>
-          </div>
-        ) : state.loading ? (
-          <div>
-            <CircularProgress />
-          </div>
-        ) : state.error ? (
-          <div>Error: {state.error.message}</div>
-        ) : (
-          <div>
-            <h1>{state.value.content}</h1>
-            <h2>{state.value.author}</h2>
-          </div>
-        )}
+  if (state.value === undefined)
+    return (
+      <Container fixed>
+        <div>
+          <h1>Press the button to start</h1>
+          <h2>...</h2>
+        </div>
         <Button onClick={() => doFetch()} variant="outlined">
           Button
         </Button>
+      </Container>
+    );
+  if (state.loading === true)
+    return (
+      <Container>
+        <CircularProgress />
+        <Button onClick={() => doFetch()} variant="outlined">
+          Button
+        </Button>
+      </Container>
+    );
+  if (state.error === true)
+    return (
+      <Container>
+        <div>Error: {state.error.message}</div>
+      </Container>
+    );
+  return (
+    <Container maxWidth="xs">
+      <div>
+        <h1>{state.value.content}</h1>
+        <h2>{state.value.author}</h2>
       </div>
-    </Card>
+      <Button onClick={() => doFetch()} variant="outlined">
+        Button
+      </Button>
+    </Container>
   );
 }
 export default QuoteAuthorCard;
