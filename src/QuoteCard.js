@@ -1,5 +1,7 @@
 import React from "react";
-import { Button, CircularProgress, Container } from "@mui/material";
+import { Box, Button, CircularProgress, Card, Typography } from "@mui/material";
+//import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material";
 import { useAsyncFn } from "react-use";
 
 function QuoteAuthorCard() {
@@ -9,43 +11,69 @@ function QuoteAuthorCard() {
     return result;
   }, ["https://api.quotable.io/random"]);
 
+  const fetchButton = (
+    <Button onClick={() => doFetch()} variant="contained" align="center">
+      New Quote
+    </Button>
+  );
+  const CustomBox = styled(Box)(({ theme }) => ({
+    raised: true,
+    width: 600,
+    margin: 500,
+    padding: 50,
+  }));
+  const CustomCard = styled(Card)(({ theme }) => ({
+    margin: 20,
+    backgroundColor: "white",
+  }));
+
   if (state.value === undefined)
     return (
-      <Container fixed>
-        <div>
-          <h1>Press the button to start</h1>
-          <h2>...</h2>
-        </div>
-        <Button onClick={() => doFetch()} variant="outlined">
-          Button
-        </Button>
-      </Container>
+      <CustomBox>
+        <CustomCard raised="true">
+          <div>
+            <Typography variant="h2" align="center" color="textPrimary">
+              Press the button to start
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary">
+              ...
+            </Typography>
+          </div>
+          {fetchButton}
+        </CustomCard>
+      </CustomBox>
     );
-  if (state.loading === true)
+  if (state.loading)
     return (
-      <Container>
-        <CircularProgress />
-        <Button onClick={() => doFetch()} variant="outlined">
-          Button
-        </Button>
-      </Container>
+      <CustomBox>
+        <CustomCard raised="true">
+          <CircularProgress />
+          {fetchButton}
+        </CustomCard>
+      </CustomBox>
     );
-  if (state.error === true)
+  if (state.error)
     return (
-      <Container>
-        <div>Error: {state.error.message}</div>
-      </Container>
+      <CustomBox>
+        <CustomCard raised="true">
+          <div>Error: {state.error.message}</div>
+        </CustomCard>
+      </CustomBox>
     );
   return (
-    <Container maxWidth="xs">
-      <div>
-        <h1>{state.value.content}</h1>
-        <h2>{state.value.author}</h2>
-      </div>
-      <Button onClick={() => doFetch()} variant="outlined">
-        Button
-      </Button>
-    </Container>
+    <CustomBox>
+      <CustomCard raised="true">
+        <div>
+          <Typography variant="h4" align="center" color="textPrimary">
+            {state.value.content}
+          </Typography>
+          <Typography variant="h6" align="center" color="textSecondary">
+            {state.value.author}
+          </Typography>
+        </div>
+        {fetchButton}
+      </CustomCard>
+    </CustomBox>
   );
 }
 export default QuoteAuthorCard;
