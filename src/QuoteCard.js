@@ -43,6 +43,7 @@ function QuoteAuthorCard() {
   }));
   const ButtonContainer = styled(Container)(({ theme }) => ({
     marginTop: 20,
+    marginBottom: 20,
     width: 300,
     display: "flex",
     flexDirection: "column",
@@ -88,6 +89,7 @@ function QuoteAuthorCard() {
         </Typography>
         <Typography
           marginTop={"40px"}
+          marginBottom={"10px"}
           variant="h6"
           align="center"
           color="textSecondary"
