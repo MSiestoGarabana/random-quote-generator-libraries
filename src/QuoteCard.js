@@ -6,7 +6,7 @@ import {
   Typography,
   Container,
 } from "@mui/material";
-//import { makeStyles } from "@mui/styles";
+
 import { styled } from "@mui/material";
 import { useAsyncFn } from "react-use";
 
@@ -23,8 +23,7 @@ function QuoteAuthorCard() {
       onClick={() => doFetch()}
       variant="contained"
       border-radius="10px"
-      margin="50px"
-      position="fixed"
+      position="absolute"
     >
       New Quote
     </Button>
@@ -34,28 +33,28 @@ function QuoteAuthorCard() {
     display: "flex",
     flexDirection: "column",
     width: "auto",
+    maxWidth: 700,
     minHeight: 300,
-    minWidth: 600,
-    margin: 500,
-    marginRight: 300,
+    minWidth: 200,
+    margin: "auto",
+    marginTop: 210,
     padding: 60,
-    boxShadow: "0px 0px 8px ",
+    boxShadow: "0px 0px 20px ",
   }));
   const ButtonContainer = styled(Container)(({ theme }) => ({
-    marginBottom: 30,
-    marginTop: 80,
+    marginTop: 20,
     width: 300,
-    padding: 10,
     display: "flex",
     flexDirection: "column",
   }));
   const TextContainer = styled(Container)(({ theme }) => ({
+    margin: 20,
+    marginBottom: 0,
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     minHeight: 150,
     padding: 10,
-    marginBottom: 0,
   }));
 
   function GetContent() {
